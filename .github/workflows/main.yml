@@ -1,4 +1,6 @@
 name: Main
+permissions:
+  contents: read
 on:
   workflow_dispatch:
     inputs:
@@ -12,10 +14,18 @@ on:
 
 jobs:
   integration:
+    permissions:
+      contents: read
     uses: ./.github/workflows/integrate-python-app.yml
   delivery:
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
     needs: [integration]
     uses: ./.github/workflows/deliver-container-image.yml
   deployment:
+    permissions:
+      packages: read
     needs: [delivery]
     uses: ./.github/workflows/deploy-aws-app-runner.yml
