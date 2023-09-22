@@ -29,3 +29,6 @@ jobs:
       packages: read
     needs: [delivery]
     uses: ./.github/workflows/deploy-aws-app-runner.yml
+    with: 
+      environment: ${{ env.environment }}
+      
