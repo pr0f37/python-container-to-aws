@@ -12,10 +12,10 @@ on:
 
 jobs:
   integration:
-    uses: .github/workflows/integrate-python-app.yml@main
+    uses: ./.github/workflows/integrate-python-app.yml
   delivery:
     needs: [integration]
-    uses: .github/workflows/deliver-container-image.yml@main
+    uses: ./.github/workflows/deliver-container-image.yml
   deployment:
     needs: [delivery]
-    uses: .github/workflows/deploy-aws-app-runner.yml@main
+    uses: ./.github/workflows/deploy-aws-app-runner.yml
