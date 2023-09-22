@@ -1,0 +1,21 @@
+name: Main
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        required: true
+        type: choice
+        description: Enter the target environment for the deployment
+        options:
+        - Staging
+        - Production
+
+jobs:
+  integration:
+    uses: .github/workflows/integrate-python-app.yml@main
+  delivery:
+    needs: [integration]
+    uses: .github/workflows/deliver-container-image.yml@main
+  deployment:
+    needs: [delivery]
+    uses: .github/workflows/deploy-aws-app-runner.yml@main
